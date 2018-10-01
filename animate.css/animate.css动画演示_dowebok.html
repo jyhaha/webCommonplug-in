@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://www.dowebok.com/demo/2014/98/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>animate.css动画演示_dowebok</title>
+<link rel="stylesheet" href="./animate.css动画演示_dowebok_files/animate.min.css">
+<style>
+* { margin: 0; padding: 0;}
+ul { list-style-type: none;}
+body { font: 14px "Microsoft Yahei"; overflow-x: hidden;}
+h1 { width: 900px; margin: 40px auto 100px; font: 32px "Microsoft Yahei"; text-align: center;}
+h2 { font: 96px "Microsoft Yahei"; font-weight: 500; text-align: center; color: #f35626;}
+.wrap p { margin-bottom: 100px; font: 30px "Microsoft Yahei"; text-align: center; color: #999;}
+.list { width: 1000px; margin: 0 auto;}
+dl { width: 1000px; margin: 10px auto; overflow: hidden;}
+dt { float: left; width: 1000px; padding: 5px 0; border-bottom: 1px solid #ddd; font-weight: 700;}
+dd { float: left; margin: 10px 10px 0 0; padding: 5px 10px; background-color: #eee; cursor: pointer;}
+
+.dowebok-explain  { display: none; margin-top: 20px; margin-bottom: 20px; font-size: 14px; text-align: center; color: #f50;}
+
+.tab { width: 900px; margin: 0 auto; border: 1px solid #ddd;}
+.tabNav { padding-bottom: 10px; overflow: hidden; zoom: 1; background-color: #f5f5f5;}
+.tabNav li { float: left; margin: 10px 0 0 10px; display: inline;}
+.tabNav a { float: left; padding: 5px 10px; color: #444; text-decoration: none;}
+.tabNav .active a { color: #fff; background-color: #f35626;}
+
+.tabPane { display: none; overflow: hidden; zoom: 1;}
+.tabCnt .active { display: block;}
+.tabCnt { padding: 10px 20px 20px;}
+.tabPane li { float: left; margin: 10px 10px 0 0; padding: 5px 10px; background-color: #eee; cursor: pointer;}
+.tabPane .active { color: #f35626;}
+</style>
+<script src="./animate.css动画演示_dowebok_files/jquery.min.js.下载"></script><style type="text/css" abt="234"></style>
+<script>
+$(function(){
+	if($.browser.msie && $.browser.version < 10){
+		$('.dowebok-explain').show();
+	}
+
+	var $animate = $('#animate');
+	var $btn = $('.tabCnt').find('li');
+	$btn.click(function(){
+		$(this).addClass('active').siblings().removeClass('active');
+		$animate.removeClass().addClass($(this).text() + ' animated infinite');
+		setTimeout(removeClass, 1000);
+	});
+
+	function removeClass(){
+		$animate.removeClass();
+	}
+
+	var $tabNavItem = $('.tabNav').find('a');
+	var $tabPane = $('.tabPane');
+	$tabNavItem.each(function(i){
+		$(this).click(function(){
+			$(this).parent().addClass('active').siblings().removeClass('active');
+			$tabPane.eq(i).addClass('active').siblings().removeClass('active');
+			return false;
+		});
+	});
+});
+</script>
+<script>//console.log('a')
+</script><script>//remove 17173 video ad
+doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+//remove baidu search ad
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+            all = document.body.querySelectorAll('.result.c-container[id="1"]');
+            //if(all.length == 1) return;
+            for(var i = 0; i < all.length; i++){
+                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
+                    all[i].style.display= "none";all[i].style.visibility='hidden';
+                }
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
+    };
+}
+//remove sohu video ad
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//remove 56.com video ad
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//fore iqiyi enable html5 player function
+if (document.URL.indexOf("iqiyi.com") >= 0){
+    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
+        document.cookie='player_forcedType=h5_VOD'
+        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
+            console.log('no reload')
+        }else{
+            location.reload()
+            localStorage.reloadTime = Date.now();
+        }
+    }
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+
+<body>
+<h1>Animate.css动画演示</h1>
+<div class="wrap">
+	<h2 id="animate" class="">Animate.css</h2>
+	<p>——CSS3动画库</p>
+</div>
+
+<p class="dowebok-explain">您的浏览器不支持 CSS3 animate 属性，所以您看不到任何效果，请使用 Firefox、Chrome 或 IE10</p>
+<div class="tab">
+	<ul class="tabNav">
+		<li class="active"><a href="http://www.dowebok.com/">Attention Seekers</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Bouncing Entrances</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Bouncing Exits</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Fading Entrances</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Fading Exits</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Flippers</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Lightspeed</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Rotating Entrances</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Rotating Exits</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Sliders</a></li>
+		<li class=""><a href="http://www.dowebok.com/demo/2014/98/###">Specials</a></li>
+	</ul>
+
+	<div class="tabCnt">
+		<ul class="tabPane active">
+			<li class="active">bounce</li>
+			<li class="">flash</li>
+			<li class="">pulse</li>
+			<li class="">rubberBand</li>
+			<li class="">shake</li>
+			<li class="">swing</li>
+			<li class="">tada</li>
+			<li class="">wobble</li>
+		</ul>
+		
+		<ul class="tabPane">
+			<li class="">bounceIn</li>
+			<li class="">bounceInDown</li>
+			<li class="">bounceInLeft</li>
+			<li class="">bounceInRight</li>
+			<li class="active">bounceInUp</li>
+		</ul>
+		
+		<ul class="tabPane">
+			<li class="">bounceOut</li>
+			<li class="">bounceOutDown</li>
+			<li class="">bounceOutLeft</li>
+			<li class="">bounceOutRight</li>
+			<li class="active">bounceOutUp</li>
+		</ul>
+		
+		<ul class="tabPane">
+			<li class="">fadeIn</li>
+			<li class="">fadeInDown</li>
+			<li class="">fadeInDownBig</li>
+			<li class="">fadeInLeft</li>
+			<li class="">fadeInLeftBig</li>
+			<li class="">fadeInRight</li>
+			<li class="">fadeInRightBig</li>
+			<li class="">fadeInUp</li>
+			<li class="active">fadeInUpBig</li>
+		</ul>
+		
+		<ul class="tabPane">
+			<li class="">fadeOut</li>
+			<li class="">fadeOutDown</li>
+			<li class="">fadeOutDownBig</li>
+			<li class="">fadeOutLeft</li>
+			<li class="">fadeOutLeftBig</li>
+			<li class="">fadeOutRight</li>
+			<li class="">fadeOutRightBig</li>
+			<li class="">fadeOutUp</li>
+			<li class="active">fadeOutUpBig</li>
+		</ul>
+		
+		<ul class="tabPane">
+			<li class="">flip</li>
+			<li class="">flipInX</li>
+			<li class="">flipInY</li>
+			<li class="">flipOutX</li>
+			<li class="active">flipOutY</li>
+		</ul>
+		
+		<ul class="tabPane">
+			<li class="">lightSpeedIn</li>
+			<li class="active">lightSpeedOut</li>
+		</ul>
+		
+		<ul class="tabPane">
+			<li class="">rotateIn</li>
+			<li class="">rotateInDownLeft</li>
+			<li class="">rotateInDownRight</li>
+			<li class="">rotateInUpLeft</li>
+			<li class="active">rotateInUpRight</li>
+		</ul>
+		
+		<h3></h3>
+		<ul class="tabPane">
+			<li class="">rotateOut</li>
+			<li class="">rotateOutDownLeft</li>
+			<li class="">rotateOutDownRight</li>
+			<li class="">rotateOutUpLeft</li>
+			<li class="active">rotateOutUpRight</li>
+		</ul>
+		
+		<ul class="tabPane">
+			<li class="">slideInDown</li>
+			<li class="">slideInLeft</li>
+			<li class="">slideInRight</li>
+			<li class="">slideOutLeft</li>
+			<li class="">slideOutRight</li>
+			<li class="active">slideOutUp</li>
+		</ul>
+		
+		<ul class="tabPane">
+			<li class="">hinge</li>
+			<li class="">rollIn</li>
+			<li class="active">rollOut</li>
+		</ul>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<p class="vad">
+	<a href="http://www.dowebok.com/" target="_blank">dowebok.com</a>
+	<a href="http://www.dowebok.com/98.html" target="_blank">说 明</a>
+	<a href="http://www.dowebok.com/98.html" target="_blank">下 载</a>
+</p>
+<div class="thead" style="width: 728px; margin: 0 auto;"><script>
+var cpro_id = "u2131690";
+</script>
+<script src="./animate.css动画演示_dowebok_files/c.js.下载"></script>
+</div>
+﻿<!-- 以下是统计及其他信息，与演示无关，不必理会 -->
+<style>
+* { margin: 0; padding: 0;}
+body { font-family: Consolas,arial,"宋体";}
+h1 { width: 900px; margin: 40px auto; font: 32px "Microsoft Yahei"; text-align: center;}
+.explain, .dowebok-explain { margin-top: 20px; font-size: 14px; text-align: center; color: #f50;}
+
+.vad { margin: 50px 0 10px; font-family: Consolas,arial,宋体; text-align:center;}
+.vad a { display: inline-block; height: 36px; line-height: 36px; margin: 0 5px; padding: 0 50px; font-size: 14px; text-align:center; color:#eee; text-decoration: none; background-color: #222;}
+.vad a:hover { color: #fff; background-color: #000;}
+.thead { width: 728px; height: 90px; margin: 0 auto; border-bottom: 40px solid transparent;}
+
+.code { position: relative; margin-top: 100px; padding-top: 41px;}
+.code h3 { position: absolute; top: 0; z-index: 10; width: 100px; height: 40px; font: 16px/40px "Microsoft Yahei"; text-align: center; cursor: pointer;}
+.code .cur { border: 1px solid #f0f0f0; border-bottom: 1px solid #f8f8f8; background-color: #f8f8f8;}
+.code .h31 { left: 0;}
+.code .h32 { left: 102px;}
+.code .h33 { left: 204px;}
+.code .h34 { left: 306px;}
+.code { width: 900px; margin-left: auto; margin-right: auto;}
+pre { padding: 15px 0; border: 1px solid #f0f0f0; background-color: #f8f8f8;}
+.f-dn { display: none;}
+</style>
+<link href="./animate.css动画演示_dowebok_files/prettify.css" rel="stylesheet">
+<script src="./animate.css动画演示_dowebok_files/prettify.js.下载"></script>
+<script>
+window.prettyPrint && prettyPrint();
+$('.code h3').not(':first').next().addClass('f-dn');
+$('.code h3').click(function(){
+	$(this).addClass('cur').siblings('h3').removeClass('cur');
+	$(this).next().removeClass('f-dn').siblings('.pre').addClass('f-dn');
+});
+</script>
+
+<script src="./animate.css动画演示_dowebok_files/z_stat.php"></script><script src="./animate.css动画演示_dowebok_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1253231826" target="_blank" title="站长统计">站长统计</a>
+<script src="./animate.css动画演示_dowebok_files/hm.js.下载"></script>
+
+
+</body></html>

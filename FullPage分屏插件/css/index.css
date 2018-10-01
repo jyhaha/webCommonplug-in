@@ -1,0 +1,174 @@
+/* 用fullpage会给每一屏再多加一个div，所以为了让我们自己写的元素有伸缩布局的效果
+    应该写seciont1 > div 代表这一页的子代div
+    记住一定要用子代
+*/
+.section1>div{
+
+    /* 启用伸缩布局 */
+    display: flex;
+
+    /* 默认什么方向？x轴，并且永远不会超过主轴方向 */
+    flex-direction: column;
+    /* 主轴用space-around */
+    justify-content: space-around;
+    /* 副轴居中 */
+    align-items: center;
+}
+
+/* 设置第一屏文字里的每个img都半透明以及距离右边25像素 */
+.section1 .texts img{
+
+    opacity: .5;
+    margin-right:25px;    
+}
+
+/* section1如果还有个类叫animation，那么才会命中 */
+.section1.animation .texts img{
+
+    transition: all 1s;
+    opacity: 1;
+    margin-right: 0;
+}
+
+
+
+/******************  第二屏开始  ******************************/
+.section2>div{
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.section2>div .shield{
+
+    width:500px;
+    min-width: 500px;
+}
+
+
+.section2>div>img{
+    width: 635px;
+    min-width: 635px;
+}
+
+/* 盾牌里的第三块 */
+.section2>div>.shield>img:nth-child(3){
+
+    transform: translate(500px,400px) rotate(270deg);
+}
+
+/* 加动画效果 */
+.section2.animation>div>.shield>img:nth-child(3){
+
+    transition: all 1s;
+    transform: none;
+}
+
+
+/* 第三屏开始 */
+.section3>div{
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.section3 .circle{
+
+    width: 453px;
+    height: 449px;
+    background: url(../images/circle.png) no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section3 .circle img{
+
+    transform: translate(-1000px,500px);
+}
+
+.section3.animation .circle img{
+
+    transition: all 1s;
+    transform: none;
+}
+
+
+/* 第四屏开始 */
+.section4>div{
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.section4 .searchBox{
+
+    width: 529px;
+    height: 438px;
+}
+
+.section4 .searchBox .searchBar{
+    height: 66px;
+    background: url('../images/search.png');
+    position: relative;
+}
+
+.section4 .searchBox .searchBar .key{
+
+    width: 0px;
+    height: 22px;
+    position: absolute;
+    left:22px;
+    top:22px;
+    background: url('../images/key.png');
+}
+
+.section4 .searchBox .result{
+
+    height: 0;
+    background: url('../images/result.png');
+}
+
+.section4 .searchBox{
+
+    transform: translate(-600px);
+}
+
+
+.section4.animation .searchBox{
+
+    transition: all 1s;
+    transform: none;
+}
+
+.section4.animation .searchBox .searchBar .key{
+
+    transition: all 1s 1s;
+    width: 99px;
+}
+
+
+.section4.animation .searchBox .result{
+
+    transition: all 1s 2s;
+    height: 372px;
+}
+
+.section5>div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section5 .browser{
+
+    width: 1004px;
+    height: 451px;
+    border: 5px solid white;
+    background: url('../images/toolbar.png') no-repeat left top,
+                url('../images/extra.png') no-repeat right bottom
+}

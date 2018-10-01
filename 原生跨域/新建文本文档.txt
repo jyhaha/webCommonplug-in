@@ -1,0 +1,11 @@
+<script>
+   function test(obj){
+         //回调函数接收数据
+            console.log(obj);
+            
+        }
+
+</script>
+//前提是请求的网站服务端必须支持跨域请求
+
+<script src="URL?callback=test"> </script>
